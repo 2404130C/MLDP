@@ -48,9 +48,6 @@ selected_town = st.selectbox("Town", towns)
 selected_type = st.selectbox("Flat Type", flat_types)
 selected_model = st.selectbox("Flat Model", flat_models)
 
-# Get current year and month
-year = datetime.now().year
-
 # Storey range dropdown (mapped to average values)
 storey_options = {
     "01 TO 03": 2, "04 TO 06": 5, "07 TO 09": 8, "10 TO 12": 11
@@ -61,6 +58,16 @@ storey_avg = storey_options[selected_storey_range]
 # Input fields
 floor_area = st.slider("Floor Area (sqm)", min_value=31.0, max_value=215.0, value=31.0)
 lease_commence = st.slider("Lease Commencement Year", min_value=1960, max_value=2025, value=1960)
+
+# Additional Configurations box for optional features
+with st.expander("Additional Configurations"):
+    year_config = st.slider(
+        "Year of Resale",
+        min_value=2017,
+        max_value=datetime.now().year + 3,
+        value=datetime.now().year,
+    )
+    year = year_config
 
 # Feature dictionary for input
 feature_dict = {
@@ -79,7 +86,7 @@ for t in flat_types:
 
 for m in flat_models:
     feature_dict[f'flat_model_{m}'] = (selected_model == m)
- 
+
 # Convert to DataFrame for prediction
 input_df = pd.DataFrame([feature_dict])
 
