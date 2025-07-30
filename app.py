@@ -20,7 +20,7 @@ st.markdown(
 )
 
 # Load trained model
-model = joblib.load("hdb_price_model.pkl")
+model = joblib.load("hdb_price_model.joblib")
 
 # Title
 st.title("HDB Resale Price Predictor")
